@@ -1,0 +1,21 @@
+<!-- extend from base layout -->
+{% extends "title.html" %}
+
+{% block content %}
+    <div class="container">
+
+      <div class="starter-template">
+        <h1>Bootstrap starter template</h1>
+        <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
+      </div>
+      <h1> Login!</h1>
+      <form action="" method="post" name="login">
+        <p>
+      	Pleas enter your ID:<br>
+      	{{form.openid(size=80)}}<br>
+        </p>
+        <p>{{form.remember_me}} Remember Me</p>
+        <p><input type="submit" value="Sign In"></p>
+      </form>
+    </div>
+{% endblock %}
