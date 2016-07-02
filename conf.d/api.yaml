@@ -1,0 +1,7 @@
+---
+getuser: http://127.0.0.1:8001/api/getuser
+getuserinfo: http://127.0.0.1:8001/api/getuserinfo
+insertuser: http://127.0.0.1:8001/api/insertuser
+deluser: http://127.0.0.1:8001/api/deluser
+
+

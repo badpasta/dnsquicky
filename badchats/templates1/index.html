@@ -1,0 +1,17 @@
+{% extends "main_new.html" %}
+{% block content %}
+	<div class="col-md-12">
+		<div class="col-md-3">
+			{% include "status.html" %}
+		</div>
+		<div class="right-tag">
+			{% include "search.html"%}
+		</div>
+	</div>
+	<div class="col-md-12">
+		{% module userlist(the_box['api']) %}
+	</div>
+	<div class="col-md-12">
+	</div>
+{% end %}
+

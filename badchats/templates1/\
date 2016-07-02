@@ -1,0 +1,48 @@
+$(document).ready(function(){
+	$.ajax({
+		url: "http://127.0.0.1:8001/api/getuser", 
+		type: "GET",    
+		dataType:"json", 
+		success: function (reponse){
+				<!-- tables_line -->
+				var jHTML = '<tr class="table-name-fonts">';
+				var pageCount = 0;
+				var pageSize = 10;
+				$.each(reponse.tables_name, function(b, k){
+					jHTML += '<th>' + k + '</th>';	
+				});
+				jHTML += '<th>options</th></tr>';
+
+				<!-- context_line -->
+				$.each(reponse.userlist, function(i,n){
+					jContext =  '<div class="btn-group">' + 
+                	            '<a class="btn btn-danger" data-uid="'+n.id+'" href="#"  data-toggle="modal" data-target="#userModal" role="button"><i class="fa  fa-pencil fa-sm"></i> Edit</a>' +
+                	            '<a type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" href="#" aria-haspopup="true" aria-expanded="false">' +
+                	            	'<span class="caret"></span>' +
+                	            	'<span class="sr-only">Toggle Dropdown</span>' +
+                	            '</a>' +
+                	            '<ul class="dropdown-menu">' +
+                	            	'<li><a href="#" data-uid="'+n.id+'" data-toggle="modal" data-target="#deluserModal"><i class="fa fa-fw fa-trash-o" role="button" ></i> Delete</a></li>' +
+                	            '</ul></div>'
+
+					jHTML += "<tr class='table-name-fonts-1'>" + 
+							 "<td>" + n.id + "</td>" +
+							 "<td>" + n.username + "</td>" + 
+							 "<td>" + jContext + "</td>" + 
+							 "</tr>";
+					pageCount = i;
+				});
+				var pageNum = Math.ceil(pageCount / pageSize);
+				$('#getuser').append(jHTML);
+			}   
+	});
+
+    $('#userModal').on('shown.bs.modal', function(){
+		
+	}) 
+    $('#userModal').on('hide.bs.modal', function(){
+		uid = $('#userModal')
+	    alert()
+	})
+
+});

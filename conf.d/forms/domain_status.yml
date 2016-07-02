@@ -1,6 +1,0 @@
----
-insert: INSERT INTO domain_status (resource_token, record_name, request_time) VALUES (%(resource_token)s, %(record_name)s, %(request_time)s);
-
-update:
-
-select: SELECT * FROM domian_status;

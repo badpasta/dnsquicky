@@ -1,0 +1,7 @@
+<xml>
+  <signature>{{signature}}</signature>
+  <timestamp>{{signature}}</timestamp>
+  <nonce>{{nonce}}</nonce>
+  <echostr>{{echostr}}</echostr>
+  <receive>{{receive}}</receive>
+</xml>

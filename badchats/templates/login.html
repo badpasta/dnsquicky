@@ -3,16 +3,19 @@
 
 {% block content %}
     <div class="container">
-
-      <div class="starter-template">
-        <h1>Bootstrap starter template</h1>
-        <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
-      </div>
-      <h1> Login!</h1>
+      <h1> Login</h1>
       <form action="" method="post" name="login">
+	  	{{ form.hidden_tag() }}
         <p>
-      	Pleas enter your ID:<br>
-      	{{form.openid(size=80)}}<br>
+      		UserName:<br>
+      		{{form.username(size=20)}}<br>
+			{% for error in form.username.errors %}
+				<span style="color: red;">[{{ error }}]</span>
+			{% endfor %}<br>
+        </p>
+        <p>
+      	PassWord:<br>
+      	{{form.password(size=20)}}<br>
         </p>
         <p>{{form.remember_me}} Remember Me</p>
         <p><input type="submit" value="Sign In"></p>

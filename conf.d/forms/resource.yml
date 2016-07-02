@@ -1,8 +1,0 @@
----
-insert: INSERT INTO resource (checked_at, city, dnssec, status, address, reliability, version, resource_token) VALUES (%(checked_at)s,%(city)s,%(dnssec)s,%(error)s,%(ip)s,%(reliability)s,%(version)s,%(resource_token)s);
-
-update:
-
-select: SELECT * FROM resource;
-
-clear: TRUNCATE TABLE resource;

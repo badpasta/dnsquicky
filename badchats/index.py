@@ -6,18 +6,14 @@
 # -*- coding: utf-8 -*-
 # Python by version 2.7.
 
-from flask import render_template, flash, redirect
+from flask import render_template, flash, redirect, request, jsonify
 from badchats import app
 from .forms import LoginForm
+from .tokens import CheckToken
+from flask import request as flask_req
+from .err import putErr
 
 @app.route('/')
-@app.route('/token')
-def token():
-    token = 'OdwGW5Enraa35OSsJXaq'
-    return render_template('token.html',
-                title = 'token',
-                token = token)
-
 @app.route('/index')
 def index():
     user = { 'name': 'badpastas'}
@@ -30,11 +26,12 @@ def login():
     form = LoginForm()
     user = { 'name': 'badpasta'}
     if form.validate():
-        flash('Login requested for OpenId="' + form.openid.data + '", remember_me=' + str(form.remember_me.data))
+        print "123"
+        flash('Login requested for OpenId="' + form.username.data + '", remember_me=' + str(form.remember_me.data))
         return redirect('/index')
     return render_template('login.html',
                 title = 'Sing Get',
-                user = user, form = form)
+                form = form)
 
 @app.route('/tab')
 def tab():

@@ -5,16 +5,16 @@
 # Environment:
 # -*- coding: utf-8 -*-
 # Python by version 2.7.
-# Flask Flask-WTF 
+# pip install pyYaml 
 
-from badchats  import app
-from badchats import index
-from yaml import load as yamlLoad
+
 from os.path import isdir
-from re import match as re_match, search as re_search
+from yaml import load as yamlLoad
+from sys import exit as sys_exit
+from re import match as re_match
+
 import os
-
-
+import sys
 
 # Analysis opts.
 def expYaml(d):
@@ -25,32 +25,39 @@ def expYaml(d):
 
     return yTmp
 
-def parseParams(config_path):
+
+def expfile(d):
+    
+    with closing(open(d)) as f:
+        tmp_list = f.read().splitlines()
+            
+    return tmp_list
+
+
+def parseParams(config_Path):
 
     found = filter(lambda x: isdir(x),
-                    (config_path, '/etc/secdd/conf'))
+                    (config_Path, '/etc/secdd/conf'))
 
     if not found:
         print "configuration directory is not exit!"
-        sys.exit(0)
+        sys_exit(0)
 
     recipe = found[0]
     trmap = dict()
     for root, dirs, files in os.walk(recipe):
         for filespath in files:
             if re_match('.*ml$', filespath):
-                filename = re_search(r'(.*)\..*ml$', filespath).group(1)
-                trmap[filename] = expYaml(os.path.join(root, filespath))
-
+                trmap[filespath.split('.')[0]] = expYaml(os.path.join(root, filespath))
+    
     return trmap
 
-
+# -----
 def main():
 
-    config_path = 'conf.d'
-    app.config.from_object('config')
-    app.config['base'] = parseParams(config_path)
-    app.run(host='0.0.0.0', port=9001, debug=True)
+    rmap = parseParams('../conf.d/')
+    print rmap
+
 
 if  __name__ == '__main__':
 
