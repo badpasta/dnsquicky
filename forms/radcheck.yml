@@ -8,3 +8,5 @@ select: "SELECT %s FROM radcheck;"
 delete: "DELETE FROM radcheck WHERE id = '%(id)s';"
 
 select_info: "SELECT %s FROM radcheck where %s = '%s';"
+
+select_user: "SELECT %(tables)s FROM radcheck where %(key)s like '%(keyword)s';"

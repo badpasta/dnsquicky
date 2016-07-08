@@ -1,4 +1,9 @@
-$(document).ready(function() {
+$(document).ready(function(){
+	var text = $('#getuser').html();
+	if (!text)
+		alert('you');
+	else
+		alert('kong');
 	getUser();
 });
 
@@ -70,11 +75,6 @@ $(document).on("click", '#searchButton', function() {
 	getUser(keyword);
 });
 
-$(document).on("keyup", "input#userSearch", function() {
-	var keyword = $('input#userSearch').val();
-	getUser(keyword);
-});
-
 function getUser(userName = '') {
 	var jData = '{"username": "' + userName +'"}';
 	$.ajax({
@@ -87,13 +87,8 @@ function getUser(userName = '') {
 			var jHTML = '<tr class="table-name-fonts">';
 			var pageCount = 0;
 			var pageSize = 10;
-			var entriesCount = 0;
-			var colCount = 3;
-			var varTfootContext = '';
-			var tfootClass = 'fonts-center';
-			var tfoot = '';
 			$.each(reponse.tables_name, function(b, k){
-				jHTML += '<th>' + k + '</th>';
+				jHTML += '<th>' + k + '</th>';	
 			});
 			jHTML += '<th>options</th></tr>';
 			<!-- context_line -->
@@ -113,16 +108,11 @@ function getUser(userName = '') {
 						 "<td>" + n.username + "</td>" + 
 						 "<td>" + jContext + "</td>" + 
 						 "</tr>";
-				entriesCount = i + 1;
+				pageCount = i;
 			});
-			if (entriesCount == 0)
-				{varTfootContext = 'Data is nothing!';}
-			else
-				{varTfootContext = 'Showing ' + entriesCount + ' Entries';
-				 tfootClass = 'fonts-left';}
-			jHTML += '<tr><td colspan="' + parseInt(3) + '" class="'+ tfootClass +'">'+ varTfootContext +'</td></tr>';
 			var pageNum = Math.ceil(pageCount / pageSize);
 			$('#getuser').html(jHTML);
 		}
 	});
 }
+

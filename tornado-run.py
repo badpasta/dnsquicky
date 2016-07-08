@@ -46,6 +46,7 @@ class Application(tornado.web.Application):
                     (r"/api/getuser", GetUserListHandler), 
                     (r"/api/getuserinfo", GetUserInfoHandler), 
                     (r"/api/insertuser", InsertUserHandler), 
+                    (r"/api/updateuser", UpdateUserHandler), 
                     (r"/api/deluser", DeleteUserHandler), 
                     (r"/index/(\d+)", IndexHandler),
                     (r"/index", IndexHandler)]
@@ -102,7 +103,7 @@ class UserListModule(tornado.web.UIModule):
         return self.render_string('modules/userlist.html', api=api)
 
     def javascript_files(self):
-        js_list = ["js/getuser.js", "js/sticky/jquery.sticky.js", "js/notify.min.js"]
+        js_list = ["js/userlist.js", "js/notify.min.js"]
         return js_list
 
 
@@ -114,32 +115,7 @@ class AddUserHandler(BaseHandler):
         context_dict = self.the_box.copy()
         context_dict['title'] = 'AddUser'
         context_dict['nav_herf'] = 'adduser'
-        self.render('adduser.html', the_box=context_dict)
-
-    @coroutine
-    def post(self):
-        userinfo_api = self.extend_config['api']['getuserinfo']
-        insertuser_api = self.extend_config['api']['insertuser']
-        context_dict = self.the_box.copy()
-        context_dict['title'] = 'AddUser'
-        context_dict['nav_herf'] = 'adduser'
-        username = self.get_argument('username')
-        password = self.get_argument('password')
-        user_data = {'username': username}
-
-        http_client = AsyncHTTPClient()
-        info_res = yield http_client.fetch(userinfo_api, method='POST', body=convJson(user_data))
-        user_info = jsonLoads(info_res.body)
-        if len(user_info) is 0:
-            user_data.update({'password': password})
-            reponse = yield http_client.fetch(insertuser_api, method='POST', body=convJson(user_data))
-            status = jsonLoads(reponse.body)['status']
-            context_dict['alert']['context'] = "SUCCESS: Users create %s!" %status
-        else:
-            context_dict['alert']['context'] = "ERROR: User already exists!"
-
-        context_dict['alert']['tag'] = True
-        self.render('adduser.html', the_box=context_dict)
+        self.render('adduser_new.html', the_box=context_dict)
       
 
 class InsertUserHandler(BaseHandler):
@@ -147,13 +123,35 @@ class InsertUserHandler(BaseHandler):
     def post(self):
         origin_data = jsonLoads(self.request.body)
         sql = self.forms['radcheck']['insert']
+        select_api = self.extend_config['api']['getuserinfo']
+        user_data = {'username': origin_data['username']}
+        status = ''
+        http_client = AsyncHTTPClient()
+        info_res = yield http_client.fetch(select_api, method='POST', body=convJson(user_data))
+        user_info = jsonLoads(info_res.body)
+        if len(user_info) is 0:
+            try:
+                yield Task(self.db.insert, sql, origin_data)
+                status = 0
+            except:
+                status = 1
+        else:
+           status = 2 
+        the_data = {'status': status}
+        self.write(convJson(the_data))
+
+
+class UpdateUserHandler(BaseHandler):
+    @coroutine
+    def post(self):
+        origin_data = jsonLoads(self.request.body)
+        sql = self.forms['radcheck']['update_pass']
         status = ''
         try:
-            yield Task(self.db.insert, sql, origin_data)
-            status = "success"
+            yield Task(self.db.delete, sql, origin_data)
+            status = True
         except:
-            status = "failed"
-
+            status = False
         the_data = {'status': status}
         self.write(convJson(the_data))
 
@@ -169,7 +167,6 @@ class DeleteUserHandler(BaseHandler):
             status = True
         except:
             status = False
-
         the_data = {'status': status}
         self.write(convJson(the_data))
 
@@ -189,15 +186,22 @@ class GetUserInfoHandler(BaseHandler):
 
 class GetUserListHandler(BaseHandler):
     @coroutine
-    def get(self):
+    def post(self):
+        origin_json = jsonLoads(self.request.body)
         sql_table = 'id, username'
-        sql = self.forms['radcheck']['select']
-        sql_context = sql % sql_table
+        sql_key = origin_json.keys()[0] or 'username'
+        sql_keyword = '%' + origin_json.values()[0] + '%'
+        print sql_keyword
+        sql_dict = dict(tables = sql_table, 
+                        key = sql_key, 
+                        keyword = sql_keyword)
+        sql = self.forms['radcheck']['select_user']
+        sql_context = sql % sql_dict
         origin_data = yield Task(self.db.select, sql_context)
         table_name = re_split(', ', sql_table)
-        the_data = { "userlist": 
-                        map(lambda x: dict(map(lambda z,d: (d,z), 
-                        x,table_name)), origin_data),
+        user_list = map(lambda x: dict(map(lambda z,d: (d,z), 
+                                 x,table_name)), origin_data)
+        the_data = { "userlist": user_list,
                      "tables_name": table_name}
         self.write(convJson(the_data))
 
