@@ -1,0 +1,18 @@
+$TTL 7200 	; 1 day
+@		IN SOA	ns1.daling.com. root.qunarops.com.(
+			2016010200	; Serial
+			3600		; Refresh (1 hour)
+			900		; Retry (15 minutes)
+			3600000		; Expire (5 weeks 6 days 16 hours)
+			3600		; Minimum (1 hour)
+			)		;
+@	2D	IN	NS	ns1.daling.com.
+@	2D	IN	NS	ns2.daling.com.
+$ORIGIN 116.254.119.in-addr.arpa.
+70	PTR	tools.daling.com.
+71	PTR	a.ns.corp.daling.com.
+72	PTR	b.ns.corp.daling.com.
+73	PTR	daling.com.
+74	PTR	daling.com.
+77	PTR	daling.com.cn.
+78	PTR	daling.com.cn.

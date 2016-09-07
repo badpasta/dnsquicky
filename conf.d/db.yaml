@@ -1,0 +1,6 @@
+---
+DBSERVER: "127.0.0.1"
+PORT: 5494
+DBUSER: "dnsadmin"
+DBPASS: "dnsadmin"
+DBNAME: "dnsadmin"

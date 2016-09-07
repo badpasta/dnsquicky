@@ -1,0 +1,21 @@
+{
+	"param": "delete",
+	"domain_name": "bj0.daling.com",
+	"values":
+		[
+			{
+				"sub_domain": "testdd.ops",
+				"record_type": "A",
+				"value": "119.254.119.150",
+				"ttl": "60",
+				"record_line": "默认",
+				"weight": "0",
+				"mx": "0",
+				"status": "True",
+				"zid": 1470121269,
+				"rid": 1473295295,
+				"rgid": 0,
+				"description": ""
+			}
+		]
+}

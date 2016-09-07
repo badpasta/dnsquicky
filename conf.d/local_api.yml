@@ -1,0 +1,6 @@
+---
+zone_uri: "http://127.0.0.1:8001/api/zone"
+zone_group_uri: "http://127.0.0.1:8001/api/zonegroup"
+record_uri: "http://127.0.0.1:8001/api/record"
+record_group_uri: "http://127.0.0.1:8001/api/recordgroup"
+changelog_uri: "http://127.0.0.1:8001/api/changelog"

@@ -1,0 +1,11 @@
+$TTL 60 	; 1 day
+@		IN SOA	ns1.daling.com. root.daling.com.(
+			2016051701	; Serial
+			3600		; Refresh (1 hour)
+			900		    ; Retry (15 minutes)
+			3600000		; Expire (5 weeks 6 days 16 hours)
+			3600		; Minimum (1 hour)
+			)		;
+
+@ IN NS ns1.daling.com.
+@ IN NS ns2.daling.com.

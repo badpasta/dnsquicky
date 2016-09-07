@@ -1,0 +1,159 @@
+$TTL 7200 	; 1 day
+@		IN SOA	ns1.daling.com. root.qunarops.com.(
+			2016071401	; Serial
+			3600		; Refresh (1 hour)
+			900		; Retry (15 minutes)
+			3600000		; Expire (5 weeks 6 days 16 hours)
+			3600		; Minimum (1 hour)
+			)		;
+@	2D	IN	NS	ns1.daling.com.
+@	2D	IN	NS	ns2.daling.com.
+
+
+
+$ORIGIN 2.36.10.in-addr.arpa.
+7	PTR	nexus.corp.daling.com.
+20	PTR	redmine.corp.daling.com.
+21	PTR	l-opcpu8.ops.bj0.daling.com.
+22	PTR	l-opdb2.corp.daling.com.
+77	PTR	l-qa2.beta.daling.com.
+78	PTR	l-qa4.beta.daling.com.
+170	PTR	l-svn.corp.daling.com.
+206	PTR	l-tools1.beta.daling.com.
+245	PTR	netmon.corp.daling.com.
+248	PTR	files1.corp.daling.com.
+$ORIGIN 3.36.10.in-addr.arpa.
+36	PTR	cloud.corp.daling.com.
+37	PTR	l-opcpu1.corp.daling.com.
+38	PTR	l-opcpu3.corp.daling.com.
+39	PTR	l-opcpu2.corp.daling.com.
+40	PTR	l-opcpu4.ops.bj0.daling.com.
+41	PTR	l-opcpu5.ops.bj0.daling.com.
+42	PTR	l-opcpu6.ops.bj0.daling.com.
+43	PTR	l-opcpu7.ops.bj0.daling.com.
+202	PTR	smtp1.corp.daling.com.
+$ORIGIN 4.36.10.in-addr.arpa.
+4	PTR	l-qa3.beta.daling.com.
+5	PTR	l-testdb1.ops.bj0.daling.com.
+6	PTR	l-nginx1.beta.daling.com.
+7	PTR	l-qa5.beta.daling.com.
+10	PTR	c.cart.beta.daling.com.
+11	PTR	oa.corp.daling.com.
+12	PTR	l-nginx2.beta.daling.com.
+13	PTR	l-php1.beta.daling.com.
+14	PTR	l-php2.beta.daling.com.
+15	PTR	l-db1.beta.daling.com.
+16	PTR	l-qa6.beta.daling.com.
+17	PTR	l-qa7.beta.daling.com.
+18	PTR	l-qa8.beta.daling.com.
+19	PTR	l-erpdev1.dev.daling.com.
+20	PTR	l-erpdev2.dev.daling.com.
+21	PTR	l-erpdev3.dev.daling.com.
+22	PTR	l-radius1.corp.daling.com.
+23	PTR	l-qa9.beta.daling.com.
+24	PTR	l-qa10.beta.daling.com.
+25	PTR	l-qa11.beta.daling.com.
+26	PTR	l-qa12.beta.daling.com.
+27	PTR	l-qa14.qa.bj0.daling.com.
+28	PTR	l-qa15.qa.bj0.daling.com.
+29	PTR	l-qa16.qa.bj0.daling.com.
+31	PTR	l-qa17.qa.bj0.daling.com.
+32	PTR	soc1.corp.daling.com.
+33	PTR	l-qa19.qa.bj0.daling.com.
+34	PTR	l-qa20.qa.bj0.daling.com.
+36	PTR	l-opsdev3.ops.bj0.daling.com.
+38	PTR	b.cart.beta.daling.com.
+39	PTR	l-pgtest1.ops.bj0.daling.com.
+40	PTR	l-pgtest2.ops.bj0.daling.com.
+41	PTR	l-php2.qa.bj0.daling.com.
+42	PTR	l-php1.qa.bj0.daling.com.
+43	PTR	l-php3.qa.bj0.daling.com.
+44	PTR	l-testdb2.ops.bj0.daling.com.
+45	PTR	l-testdb3.ops.bj0.daling.com.
+46	PTR	l-testdb4.ops.bj0.daling.com.
+48	PTR	l-tengine1.ops.bj0.daling.com.
+49	PTR	l-php4.qa.bj0.daling.com.
+50	PTR	l-rabbitmq1.ops.bj0.daling.com.
+51	PTR	l-rabbitmq2.ops.bj0.daling.com.
+52	PTR	l-rabbitmq3.ops.bj0.daling.com.
+53	PTR	l-solr1.ops.bj0.daling.com.
+54	PTR	l-fedev1.ops.bj0.daling.com.
+55	PTR	l-fedev2.ops.bj0.daling.com.
+56	PTR	l-fedev3.ops.bj0.daling.com.
+57	PTR	l-jenkins1.qa.bj0.daling.com.
+59	PTR	l-solr2.ops.bj0.daling.com.
+60	PTR	l-tengine2.ops.bj0.daling.com.
+61	PTR	l-task1.ops.bj0.daling.com.
+65	PTR	l-oa1.ops.bj0.daling.com.
+66	PTR	l-cache1.qa.bj0.daling.com.
+67	PTR	e.admin.beta.daling.com.
+68	PTR	l-opsdev4.ops.bj0.daling.com.
+69	PTR	l-opsdev5.ops.bj0.daling.com.
+70	PTR	l-opsdev6.ops.bj0.daling.com.
+71	PTR	l-opsdev7.ops.bj0.daling.com.
+72	PTR	f.admin.beta.daling.com.
+73	PTR	l-opsdev2.ops.bj0.daling.com.
+74	PTR	l-opsdev1.ops.bj0.daling.com.
+77	PTR	l-nginx1.ops.bj0.daling.com.
+78	PTR	l-php2.prod.bj0.daling.com.
+84	PTR	l-oldererp.qa.bj0.daling.com.
+85	PTR	d.cart.beta.daling.com.
+86	PTR	l-nginx.prod.bj0.daling.com.
+87	PTR	l-solr.prod.bj0.daling.com.
+88	PTR	l-cache.prod.bj0.daling.com.
+89	PTR	l-uc.prod.bj0.daling.com.
+90	PTR	l-rabbitmq.prod.bj0.daling.com.
+91	PTR	l-php3.prod.bj0.daling.com.
+92	PTR	l-php5.qa.bj0.daling.com.
+93	PTR	l-php6.qa.bj0.daling.com.
+94	PTR	l-cacti1.ops.bj0.daling.com.
+96	PTR	l-php1.prod.bj0.daling.com.
+97	PTR	l-php4.prod.bj0.daling.com.
+98	PTR	l-opsdev8.ops.bj0.daling.com.
+99	PTR	l-opsdev9.ops.bj0.daling.com.
+100	PTR	l-datadev1.ops.bj0.daling.com.
+101	PTR	l-opsdev10.ops.bj0.daling.com.
+102	PTR	l-uc1.stage.bj0.daling.com.
+103	PTR	l-uc2.stage.bj0.daling.com.
+104	PTR	l-hbtest.ops.bj0.daling.com.
+105	PTR	l-dnscache1.ops.bj0.daling.com.
+108	PTR	l-qa21.qa.bj0.daling.com.
+109	PTR	l-qa22.qa.bj0.daling.com.
+110	PTR	l-qa23.qa.bj0.daling.com.
+111	PTR	l-qa24.qa.bj0.daling.com.
+112	PTR	l-qa25.qa.bj0.daling.com.
+113	PTR	l-qa26.qa.bj0.daling.com.
+114	PTR	l-qa27.qa.bj0.daling.com.
+115	PTR	l-qa28.qa.bj0.daling.com.
+116	PTR	l-qa29.qa.bj0.daling.com.
+117	PTR	l-qa30.qa.bj0.daling.com.
+118	PTR	l-qa31.qa.bj0.daling.com.
+119	PTR	l-qa32.qa.bj0.daling.com.
+120	PTR	l-qa33.qa.bj0.daling.com.
+121	PTR	l-qa34.qa.bj0.daling.com.
+122	PTR	l-qa35.qa.bj0.daling.com.
+123	PTR	l-qa36.qa.bj0.daling.com.
+124	PTR	l-qa37.qa.bj0.daling.com.
+125	PTR	l-qa38.qa.bj0.daling.com.
+126	PTR	l-coupondb1.ops.bj0.daling.com.
+127	PTR	l-coupondb2.ops.bj0.daling.com.
+128	PTR	l-qa39.qa.bj0.daling.com.
+129	PTR	l-qa40.qa.bj0.daling.com.
+130	PTR	l-phpdev1.dev.bj0.daling.com.
+131	PTR	l-opsdev14.ops.bj0.daling.com.
+132	PTR	l-opsdev15.ops.bj0.daling.com.
+133	PTR	l-opsdev13.ops.bj0.daling.com.
+134	PTR	l-vrmupload1.ops.bj0.daling.com.
+135	PTR	l-opstest1.ops.bj0.daling.com.
+136	PTR	l-opsdev16.ops.bj0.daling.com.
+137	PTR	l-hd2.ops.bj0.daling.com.
+138	PTR	l-hd3.ops.bj0.daling.com.
+155	PTR	l-dnscache2.ops.bj0.daling.com.
+199	PTR	l-cacti19.ops.bj0.daling.com.
+$ORIGIN 12.36.10.in-addr.arpa.
+120	PTR	goods.x.beta.daling.com.
+$ORIGIN 15.36.10.in-addr.arpa.
+100	PTR	printers.corp.daling.com.
+$ORIGIN 56.36.10.in-addr.arpa.
+20	PTR	sip.corp.daling.com.
+21	PTR	voip.corp.daling.com.

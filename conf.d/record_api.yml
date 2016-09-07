@@ -1,0 +1,11 @@
+---
+#description: operation record
+insert: https://dnsapi.cn/Record.Create
+list: https://dnsapi.cn/Record.List
+update: https://dnsapi.cn/Record.Modify
+delete: https://dnsapi.cn/Record.Remove
+ddns: https://dnsapi.cn/Record.Ddns
+remark: https://dnsapi.cn/Record.Remark
+info: https://dnsapi.cn/Record.Info
+disable: https://dnsapi.cn/Record.Status
+muticreate: https://dnsapi.cn/Batch.Record.Create

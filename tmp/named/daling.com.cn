@@ -1,0 +1,46 @@
+;;$TTL 1800      ; 1 day
+$TTL	60
+@		IN SOA  ns1.daling.com.cn. root.daling.com.cn.(
+			2016010201	; Serial
+;;			3600            ; Refresh (1 hour)
+			60
+			900             ; Retry (15 minutes)
+			3600000         ; Expire (5 weeks 6 days 16 hours)
+			3600            ; Minimum (1 hour)
+			)
+@	2D	IN	NS    ns1.daling.com.cn.
+@	2D	IN	NS    ns2.daling.com.cn.
+daling.com.cn.	IN	A	119.254.116.77
+daling.com.cn.	IN	A	119.254.116.78
+$ORIGIN daling.com.cn.
+tools	IN	A	119.254.116.70
+ns1	IN	A	119.254.116.71
+ns2	IN	A	119.254.116.72
+;;www	900 	IN	A       59.151.3.136	
+;;www	60	IN	A	59.151.3.136
+www	60	IN	A	119.254.116.77
+www	60	IN	A	119.254.116.78
+;www	IN	A	119.254.116.77
+;www	IN	A	119.254.116.78
+brand	IN	CNAME	www
+vpn.corp	IN	A	119.254.116.70
+;;
+l-kvm1.ops.bj1	IN	A	10.0.3.10
+l-kvm2.ops.bj1	IN	A	10.0.3.11
+l-db1.ops.bj1	IN	A	10.0.3.12
+l-db2.ops.bj1	IN	A	10.0.3.13
+l-tools.ops.bj1	IN	A	10.0.3.14
+l-nginx1.ops.bj1	IN	A	10.0.3.15
+l-nginx2.ops.bj1	IN	A	10.0.3.16
+l-mfs1.ops.bj1	IN	A	10.0.3.17
+l-ngvip1.ops.bj1	IN	A	10.0.3.18
+l-ngvip2.ops.bj1	IN	A	10.0.3.19
+;;
+i-kvm1.ops.bj1	IN	A	10.0.4.10
+i-kvm2.ops.bj1	IN	A	10.0.4.11
+i-db1.ops.bj1	IN	A	10.0.4.12
+i-db2.ops.bj1	IN	A	10.0.4.13
+i-tools.ops.bj1	IN	A	10.0.4.14
+i-nginx1.ops.bj1	IN	A	10.0.4.15
+i-nginx2.ops.bj1	IN	A	10.0.4.16
+i-mfs1.ops.bj1	IN	A	10.0.4.17

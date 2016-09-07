@@ -1,0 +1,20 @@
+{
+	"param": "insert",
+	"domain_name": "bj0.daling.com",
+	"values":
+		[
+			{
+				"sub_domain": "testdd.ops",
+				"record_type": "A",
+				"value": "10.0.3.1",
+				"ttl": "60",
+				"record_line": "默认",
+				"weight": "0",
+				"mx": "0",
+				"status": "True",
+				"zid": 1470121269,
+				"rgid": 0,
+				"description": ""
+			}
+		]
+}

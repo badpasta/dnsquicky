@@ -1,0 +1,24 @@
+.box-shadow {
+	padding:8px;  
+	background-color: #fff;  
+	-moz-box-shadow: 2px 2px 5px #000; 
+	-webkit-box-shadow: 2px 2px 5px #000; 
+	box-shadow: 2px 2px 5px #000; 
+}
+
+.box-shadow-1 {
+	display:inline;  
+	border:1px solid #d3c998;  
+	border-radius:2px;  
+	filter:progid:DXImageTransform.Microsoft.Shadow(color='#d3c998', Direction=135,Strength=5);/*for ie6,7,8*/  
+	background-color: #fff;  
+	-moz-box-shadow:2px 2px 5px #000;/*firefox*/  
+	-webkit-box-shadow:2px 2px 5px #000;/*webkit*/  
+	box-shadow:2px 2px 5px #000;/*opera或ie9*/  
+}
+
+.border-1 {
+	border:1px solid #d3c998;  
+}
+
+

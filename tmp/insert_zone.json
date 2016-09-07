@@ -1,0 +1,60 @@
+{"param": "insert", 
+  "values": 
+	[
+	  {
+		"name": "daling.com", 
+		"zgid": "1470110591", 
+		"description": "Daling 主域名"
+	  },
+	  {
+		"name": "ymall.com",
+		"zgid": "1470110591",
+		"description": "Ymall主域名"
+	  },
+	  {
+		"name": "beta.daling.com",
+		"zgid": "1470110644",
+		"description": "QA测试域名"
+	  },
+	  {
+		"name": "srv.daling.com",
+		"zgid": "1470110644",
+		"description": "内网服务域名"
+	  },
+	  {
+		"name": "corp.daling.com",
+		"zgid": "1470110644",
+		"description": "内网服务域名"
+	  },
+	  {
+		"name": "wh.daling.com",
+		"zgid": "1470110644",
+		"description": "设备域名"
+	  },
+	  {
+		"name": "bj0.daling.com",
+		"zgid": "1470110644",
+		"description": "办公室域名"
+	  },
+	  {
+		"name": "bj1.daling.com",
+		"zgid": "1470110644",
+		"description": "酒仙桥域名"
+	  },
+	  {
+		"name": "bj2.daling.com",
+		"zgid": "1470110644",
+		"description": "燕郊域名"
+	  },
+	  {
+		"name": "fe.daling.com",
+		"zgid": "1470110644",
+		"description": "前端域名"
+	  },
+	  {
+		"name": "dev.daling.com",
+		"zgid": "1470110644",
+		"description": "开发域名"
+	  }
+	]
+}

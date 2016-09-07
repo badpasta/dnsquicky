@@ -1,2 +1,5 @@
 ---
-file_dir: /tmp/radius_file/
+rdtype_list: ["A", "MX", "NS", "TXT", "CNAME", "PTR"]
+ixfr:
+    server: 'l-core2.ops.bj2.daling.com'
+    port: 53
