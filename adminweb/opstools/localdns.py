@@ -13,7 +13,7 @@ import dns.zone
 import re
 import dns.query
 import dns.update
-
+import time
 
 RRTYPE_LIST = {'1':"A", '2':"NS", '5':"CNAME", '6':"SOA", '12':"PTR", '15':"MX", '16':"TXT", '28':"AAAA", "33":"SRV", '39':"DNAME", '44':"DS"}
 
@@ -45,11 +45,13 @@ class IxfrRecord:
         self.query = partial(dns.query.tcp, where=self.master_server, port=self.port)
 
     def Delete(self):
-        print self.sub_domain
-        print self.args
+        #print 'delete: '+self.sub_domain
+        #print self.args
         self.dns_up.delete(self.sub_domain, *self.args)
 
     def Add(self):
+        #print 'Add: '+self.sub_domain
+        #print self.args
         self.dns_up.add(self.sub_domain, *self.args)
 
     def chooseBranch(self, branch):
@@ -72,8 +74,7 @@ class IxfrRecord:
                     mx,
                 )
         '''
-        self.sub_domain = kw['sub_domain']
-        del kw['sub_domain']
+        self.sub_domain = kw.pop('sub_domain')
         args = list()
         if kw.has_key('ttl'): 
             args.append(int(kw.pop('ttl')))

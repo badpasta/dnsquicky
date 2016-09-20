@@ -2,6 +2,7 @@
 {% block head %}
 <link rel="stylesheet" href="{{ static_url("plugins/datatables/dataTables.bootstrap.css") }}">
 <link rel="stylesheet" href="{{ static_url("dist/css/skins/_all-skins.min.css") }}">
+<!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css"> --!>
 <!-- DataTables -->
 <script src="{{ static_url("plugins/datatables/jquery.dataTables.min.js") }}"></script>
 <script src="{{ static_url("plugins/datatables/dataTables.bootstrap.min.js") }}"></script>
@@ -13,8 +14,10 @@
 <script src="{{ static_url("dist/js/app.min.js") }}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{ static_url("dist/js/demo.js") }}"></script>
+<!-- Good effect -->
+
 <!-- Own JS -->
-<script src="{{ static_url("js/dnsmon.js") }}"></script>
+<script src="{{ static_url("js/record.js") }}"></script>
 {% end %}
 {% block body %}
   <!-- Content Wrapper. Contains page content -->
@@ -33,23 +36,32 @@
     <!-- Main content -->
     <section class="content">
       <div class="row">
-	  	<div class="col-xs-2">
+	  	<div class="col-xs-3">
 			{% include "records_secnav.html"%}
 		</div>
-        <div class="col-xs-7">
-          <div class="box">
+        <div class="col-xs-9">
+          <div class="box box-solid box-primary">
             <div class="box-header">
-              <h3 class="box-title">Record List</h3>
+              <h3 id="domainTitle" class="box-title table-name-fonts-1"><b>RECORD LIST</b></h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-              <table id="monTable" class="table table-bordered table-striped">
+              <table id="recordTable" class="table table-bordered table-striped " > <!--  text-center --!>
 			  	<thead>
 			  	<tr>
-					<th>NameServer</th>
-					<th>Records</th>
-					<th>Status</th>
-					<th>Time</th>
+					<th>rid</th>
+					<th>sub_domain</th>
+					<th>type</th>
+					<th>ttl</th>
+					<th>value</th>
+					<th>weight</th>
+					<th>mx</th>
+					<th>r_mx</th>
+					<th>line</th>
+					<th>status</th>
+					<th>r_status</th>
+					<th>描述</th>
+					<th>操作</th>
 				</tr>
 				</thead>
               </table>
@@ -62,11 +74,13 @@
       </div>
       <!-- /.row -->
     </section>
+	{% include "records_modal.html" %}
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
   {% include "footer.html" %}
 </div>
+
 <!-- ./wrapper -->
 
 <!-- page script -->

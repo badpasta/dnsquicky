@@ -42,6 +42,7 @@ class BaseRequestUrl:
         #print self.uData
         httpclient = AsyncHTTPClient()
         uPost = yield httpclient.fetch(uApi, method='POST', body=body, headers=self.uHeaders)
+        #print uPost.body
         try:
             jPost = jsonLoads(uPost.body)
             #print jPost
@@ -90,6 +91,7 @@ def pushDNS(request_func, branch, domain_id, **kw):
     if udata.get('description'): del udata['description']
     if udata.get('zid'): del udata['zid']
     if udata.get('rgid'): del udata['rgid']
+    print udata['status'] 
     if udata['status'] == 'True':
         udata['status'] = 'enable'
     else:
@@ -127,7 +129,7 @@ class PushDNS:
         if kw.get('rgid'): del kw['rgid']
         if kw.has_key('rid'):
             kw['record_id'] = kw.pop('rid')
-        if kw['status'] == 'True':
+        if kw['status']:
             kw['status'] = 'enable'
         else:
             kw['status'] = 'disable'
@@ -170,7 +172,8 @@ class PickCookie:
         value = kw.get('value', str()) 
         ttl = kw['ttl'] or '60'
         weight = kw['weight'] if kw.get('weight') else '0'
-        mx = '0' if 'mx' is not record_type else kw.get('mx', '0') 
+        #mx = '0' if 'mx' not in record_type else kw.get('mx', '0') 
+        mx = '0' if 'MX' not in record_type else kw.get('mx', '0') 
         record_line = kw.get('line', str(u'默认'))
         status = True if '1' in kw.get('enabled', '0') else False
         rgid = kw.get('rgid', '1')

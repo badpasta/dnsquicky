@@ -9,7 +9,9 @@
 from adminweb.handler.base import BaseHandler
 from adminweb.opstools.resolver import CheckDns
 from smalltools.opsJson import jsonLoads, convJson
-from tornado.gen import coroutine
+from smalltools.Other import sqlZip
+
+from tornado.gen import coroutine, Task, Return
 
 import adminweb.opstools.resolver
 
@@ -84,3 +86,17 @@ class GetDnsTypeList(BaseHandler):
         self.write(convJson(message))
 
 
+class CheckZoneList(BaseHandler):
+    @coroutine
+    def get(self):
+        table_name = ['zid', 'zone_name', 'zgid', 'group_name', 'description']
+        origin_list = yield Task(self.db.select, self.forms['record_zones']['select_view_like'], zid='%')
+        zone_groups = sqlZip(table_name, origin_list)
+        #lambda x: x['zid'], x['zone_name'], x[''], zone_groups
+        zone_map = dict()
+        for i in zone_groups:
+            l = i['group_name']
+            if not zone_map.has_key(l):
+                zone_map[l] = list()
+            zone_map[l].append(dict(id=i['zid'],name=i['zone_name']))
+        self.write(convJson(zone_map))

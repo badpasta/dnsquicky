@@ -6,11 +6,13 @@
 # -*- coding: utf-8 -*-
 # Python by version 2.7.
 
-from adminweb.handler.work import LoginHandler, DNSMonHandler, CheckDnsDefault, GetDnsTypeList, RecordsHandler, ZonesHandler
+from adminweb.handler.work import (LoginHandler, DNSMonHandler, CheckDnsDefault, 
+                                   GetDnsTypeList, RecordsHandler, ZonesHandler,
+                                   CheckZoneList)
 from adminweb.handler.zone import ZoneHandler, ZoneGroupHandler
 from adminweb.handler.refresh import RefreshHandler
 from adminweb.handler.log import ChangeLogHandler
-from adminweb.handler.record import RecordHandler
+from adminweb.handler.record import RecordHandler, RecordNumHandler, GetRecordIdHandler
 from tornado.web import Application
 from tornado.options import options
 
@@ -25,6 +27,10 @@ class WebApplication(Application):
                     (r"/api/getdnstypelist", GetDnsTypeList),
                     (r"/api/zone", ZoneHandler),
                     (r"/api/record", RecordHandler),
+                    (r"/api/recordnum", RecordNumHandler),
+                    (r"/api/getrid", GetRecordIdHandler),
+                    (r"/api/recordnum", RecordNumHandler),
+                    (r"/api/zonelist", CheckZoneList),
                     (r"/api/zonegroup", ZoneGroupHandler),
                     (r"/api/changelog", ChangeLogHandler),
                     (r"/api/refresh", RefreshHandler),
