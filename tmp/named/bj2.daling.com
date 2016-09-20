@@ -1,7 +1,7 @@
 ;;$TTL 1800      ; 1 day
 $TTL 60
 @                    IN SOA  a.ns.bj2.daling.com. root.bj2.daling.com.(
-                        2016080101	; Serial
+                        2016091302	; Serial
                         3600            ; Refresh (1 hour)
                         900             ; Retry (15 minutes)
                         3600000         ; Expire (5 weeks 6 days 16 hours)
@@ -21,6 +21,8 @@ $ORIGIN daling.com.
 
 $ORIGIN ops.bj2.daling.com.
 
+l-idstore1	IN		A	10.0.26.163
+l-idstore2	IN		A	10.0.26.178
 l-pushmaster4	IN		A	10.0.26.176
 l-pushmaster5	IN		A	10.0.26.177
 l-pushmaster3	IN		A	10.0.26.173
@@ -626,6 +628,8 @@ l-special2      IN              A       10.0.26.102
 l-special1      IN              A       10.0.26.101
 $ORIGIN erp.bj2.daling.com.
 l-vrmopenapi	IN		A	10.0.26.174
+l-csm1		IN		A	10.0.26.181
+l-csm2		IN		A	10.0.26.182
 l-pay1		IN		A	10.0.26.63
 l-pay2		IN		A	10.0.26.164
 l-deeplucky1	IN		A	10.0.26.59

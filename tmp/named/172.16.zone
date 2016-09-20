@@ -1,16 +1,17 @@
-$TTL 60 	; 1 day
-@		IN SOA	ns1.daling.com. root.daling.com.(
-			2016051701	; Serial
-			3600		; Refresh (1 hour)
-			900		    ; Retry (15 minutes)
-			3600000		; Expire (5 weeks 6 days 16 hours)
-			3600		; Minimum (1 hour)
-			)		;
-
-@ IN NS ns1.daling.com.
-@ IN NS ns2.daling.com.
-
-172.16.0.228	PTR	st1.as.ops.bj1.daling.com.
-172.16.0.3	PTR	st1.b.ops.bj1.daling.com.
-172.16.0.2	PTR	st1.m.ops.bj1.daling.com.
-172.16.0.1	PTR	bj1-msr1.wh.daling.com.
+$ORIGIN .
+$TTL 60	; 1 minute
+16.172.IN-ADDR.ARPA	IN SOA	ns1.daling.com. root.daling.com. (
+				2016051892 ; serial
+				3600       ; refresh (1 hour)
+				900        ; retry (15 minutes)
+				3600000    ; expire (5 weeks 6 days 16 hours)
+				3600       ; minimum (1 hour)
+				)
+			NS	ns1.daling.com.
+			NS	ns2.daling.com.
+$ORIGIN 16.172.IN-ADDR.ARPA.
+1.0			PTR	bj1-msr1.wh.daling.com.
+172.16.0.1		PTR	bj1-msr1.wh.daling.com.
+172.16.0.2		PTR	st1.m.ops.bj1.daling.com.
+172.16.0.228		PTR	st1.as.ops.bj1.daling.com.
+172.16.0.3		PTR	st1.b.ops.bj1.daling.com.

@@ -1,7 +1,7 @@
 ;;$TTL 1800      ; 1 day
 $TTL 60
 @                    IN SOA  a.ns.beta.daling.com. root.beta.daling.com.(
-                        2016081701	; Serial
+                        2016091201	; Serial
                         3600            ; Refresh (1 hour)
                         900             ; Retry (15 minutes)
                         3600000         ; Expire (5 weeks 6 days 16 hours)
@@ -35,6 +35,7 @@ captcha		IN	A	10.36.4.30
 ;app		IN	A	119.253.46.146
 ;erp.api		IN	A	119.253.46.146
 erp.api		IN	A	223.223.192.86
+touch		IN	A	223.223.192.86
 ;app		IN	CNAME	app.beta.sec.daling.com.
 ymall		IN	CNAME	ymall.beta.daling.com.he2.aqb.so.
 *.erp		IN	A	10.36.4.30
@@ -74,7 +75,7 @@ d.mbr-wallet	IN	A	10.36.4.85
 
 zin		IN	A	10.36.4.30 
 crm		IN	A	10.36.4.30
-qadb		IN	CNAME	l-opdb2.ops.bj0.daling.com.
+qadb		IN	CNAME	l-opdb2.ops.bj0.daling.com
 
 l-tools1        IN      A       10.36.2.206
 sms		IN	A	10.36.4.30

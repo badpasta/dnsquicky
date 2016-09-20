@@ -1,7 +1,7 @@
 ;;$TTL 1800      ; 1 day
 $TTL 60
 @                    IN SOA  a.ns.corp.daling.com. root.corp.daling.com.(
-                        2016081701	; Serial
+                        2016091301	; Serial
                         3600            ; Refresh (1 hour)
                         900             ; Retry (15 minutes)
                         3600000         ; Expire (5 weeks 6 days 16 hours)
@@ -17,6 +17,12 @@ a.ns IN A 119.254.119.155
 b.ns IN A 119.254.119.156
 
 ;;corp
+csm	IN	A	10.0.8.32
+csm	IN	A	10.0.8.33
+zin	IN	A	10.0.8.32
+zin	IN	A	10.0.8.33
+dalingbot	IN	A	10.0.8.33
+dalingbot	IN	A	10.0.8.32
 act	IN	A	10.0.8.32
 act	IN	A	10.0.8.33
 sysmon IN	A	10.0.3.37

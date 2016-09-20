@@ -1,7 +1,7 @@
 ;;$TTL 1800      ; 1 day
 $TTL 60
 @                    IN SOA  a.ns.srv.daling.com. root.srv.daling.com.(
-                        2016081201	; Serial
+                        2016090702	; Serial
                         3600            ; Refresh (1 hour)
                         900             ; Retry (15 minutes)
                         3600000         ; Expire (5 weeks 6 days 16 hours)
@@ -89,7 +89,10 @@ wmsdbm.vip	IN	A	10.0.24.247
 syslog.vip	IN	A	10.0.3.17
 coupon		IN	A	10.0.31.240
 coupon		IN	A	10.0.31.241
+idstore		IN	A	10.0.31.240
+idstore		IN	A	10.0.31.241
 erpdbm2.vip	IN	A	10.0.24.248
+gpmstore	IN	A	10.0.31.27
 storage		IN	A	10.0.31.26
 
 ;;ntp
