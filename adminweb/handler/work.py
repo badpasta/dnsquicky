@@ -12,6 +12,7 @@ from smalltools.opsJson import jsonLoads, convJson
 from smalltools.Other import sqlZip
 
 from tornado.gen import coroutine, Task, Return
+from tornado.web import authenticated
 
 import adminweb.opstools.resolver
 
@@ -19,8 +20,8 @@ import adminweb.opstools.resolver
 class LoginHandler(BaseHandler):
     @coroutine
     def get(self):
-        #if self.current_user:
-        #    self.redirect("/index")
+        if self.current_user:
+            self.redirect("/records")
         context_dict = self.the_box.copy()
         context_dict['title'] = 'LOGIN'
         self.render('login.html', the_box=context_dict)
@@ -31,17 +32,26 @@ class LoginHandler(BaseHandler):
         username = origin_json['username']
         password = origin_json['password']
         message = dict(status='')
-        jUrl = 'http://127.0.0.1:8001/dnsmon'
+        jUrl = 'http://127.0.0.1:8001/records'
         if username == self.auth['username']:
             if password == self.auth['password']:
                 message['status'] = True
                 message['url'] = jUrl 
+                self.set_secure_cookie("user", username)
         else:
             message['status'] = False
         self.write(convJson(message))
 
 
+class LogoutHandler(BaseHandler):
+    @coroutine
+    def get(self):
+        self.clear_cookie('user')
+        self.redirect('/login')
+
+
 class RecordsHandler(BaseHandler):
+    @authenticated
     @coroutine
     def get(self):
         context_dict = self.the_box.copy()
@@ -68,7 +78,6 @@ class DNSMonHandler(BaseHandler):
 class CheckDnsDefault(BaseHandler):
     @coroutine
     def post(self):
-        print self.request.body
         origin_json = jsonLoads(self.request.body)
         nameserver = origin_json['nameserver']
         record = origin_json['record']
@@ -92,7 +101,6 @@ class CheckZoneList(BaseHandler):
         table_name = ['zid', 'zone_name', 'zgid', 'group_name', 'description']
         origin_list = yield Task(self.db.select, self.forms['record_zones']['select_view_like'], zid='%')
         zone_groups = sqlZip(table_name, origin_list)
-        #lambda x: x['zid'], x['zone_name'], x[''], zone_groups
         zone_map = dict()
         for i in zone_groups:
             l = i['group_name']

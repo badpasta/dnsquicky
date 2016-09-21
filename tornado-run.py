@@ -29,9 +29,10 @@ reload(sys)
 sys.setdefaultencoding('utf8')
 
 def main():
-    config_file = 'web-conf.d/default.conf'
-    form_path = 'forms'
-    extend_config_path = 'conf.d/'
+    file_path = os.path.split(os.path.realpath(__file__))[0] + '/'
+    config_file = file_path + 'web-conf.d/default.conf'
+    form_path = file_path + 'forms'
+    extend_config_path = file_path + 'conf.d/'
     extend_config = parseParams(extend_config_path)
     external_api = dict(domain=extend_config['domain_api'], record=extend_config['record_api'])
     db_conf = extend_config['db']

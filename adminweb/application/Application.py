@@ -8,8 +8,8 @@
 
 from adminweb.handler.work import (LoginHandler, DNSMonHandler, CheckDnsDefault, 
                                    GetDnsTypeList, RecordsHandler, ZonesHandler,
-                                   CheckZoneList)
-from adminweb.handler.zone import ZoneHandler, ZoneGroupHandler
+                                   CheckZoneList, LogoutHandler)
+from adminweb.handler.zone import ZoneHandler, ZoneGroupHandler, ZoneNumHandler
 from adminweb.handler.refresh import RefreshHandler
 from adminweb.handler.log import ChangeLogHandler
 from adminweb.handler.record import RecordHandler, RecordNumHandler, GetRecordIdHandler
@@ -22,6 +22,7 @@ from tornado.options import options
 class WebApplication(Application):
     def __init__(self):
         handlers = [(r"/login", LoginHandler),
+                    (r"/logout", LogoutHandler),
                     (r"/dnsmon", DNSMonHandler),
                     (r"/api/checkdnsdefault", CheckDnsDefault),
                     (r"/api/getdnstypelist", GetDnsTypeList),
@@ -30,6 +31,7 @@ class WebApplication(Application):
                     (r"/api/recordnum", RecordNumHandler),
                     (r"/api/getrid", GetRecordIdHandler),
                     (r"/api/recordnum", RecordNumHandler),
+                    (r"/api/zonenum", ZoneNumHandler),
                     (r"/api/zonelist", CheckZoneList),
                     (r"/api/zonegroup", ZoneGroupHandler),
                     (r"/api/changelog", ChangeLogHandler),

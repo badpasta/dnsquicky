@@ -19,3 +19,5 @@ select_view_zid: "select zid, zone_name, zgid, group_name, description from zone
 select_view_name: "select zid, zone_name, zgid, group_name, description from zone_view where zone_name = %(domain_name)s"
 
 select_by_group: "select zid, zone_name, file_path from zone_view where group_name = %(group_name)s"
+
+select_num_by_zgid: "select count(1) from record_zones where cast(zgid as varchar) like %(zgid)s"

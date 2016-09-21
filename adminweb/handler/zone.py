@@ -60,16 +60,17 @@ class ZoneGroupHandler(BaseHandler):
     @coroutine
     def get(self):
         origin_json = dict()
-        try:
-            origin_json['zgid']= self.get_argument('zgid') or '%'
-            origin_sql = self.forms['zone_groups']['select']
-            origin_data = yield Task(self.db.select, origin_sql, origin_json)
-            table_name = ['zgid', 'group_name', 'description']
-            data_list = sqlZip(table_name, origin_data)
-            #data_list = map(lambda x: dict(zip(table_name, x)), origin_data)
-            message = {"status": True, "message": data_list}
-        except:
-            message = {"status": False, "message": "params not found."}
+        origin_json['zgid']= self.get_argument('zgid') or '%'
+        origin_sql = self.forms['zone_groups']['select']
+        origin_data = yield Task(self.db.select, origin_sql, **origin_json)
+        table_name = ['zgid', 'group_name', 'description']
+        data_list = sqlZip(table_name, origin_data)
+        #data_list = map(lambda x: dict(zip(table_name, x)), origin_data)
+        message = {"status": True, "message": data_list}
+
+        #try:
+        #except:
+        #    message = {"status": False, "message": "params not found."}
         self.write(convJson(message))
 
     @coroutine
@@ -96,3 +97,21 @@ class ZoneGroupHandler(BaseHandler):
         self.write(convJson(message))
 
 
+
+class ZoneNumHandler(BaseHandler):
+    @coroutine
+    def get(self):
+        origin_json = dict()
+        status = str()
+        result = dict()
+        try:
+            origin_json['zgid']= self.get_argument('zgid') or '%'
+            origin_sql = self.forms['record_zones']['select_num_by_zgid']
+            origin_data = yield Task(self.db.select, origin_sql, **origin_json)
+            status = True
+            result['record_num'] = origin_data[0][0]
+        except:
+            status = False
+            result['message'] = "params not found."
+        result['status'] = status
+        self.write(convJson(result))
