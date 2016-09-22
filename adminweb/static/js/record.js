@@ -53,11 +53,6 @@ $(document).on("click", "button[name=add]", function() {
 */
 	var theParent = $(this).parents('tr');
 	//var dataSrc = {"rid":'123',"sub_domain":'dddd',"record_type":'5',"ttl":'7',"value":'9',"weight":'bbb',"r_mx":"dddd","mx":'aaa',"record_line":'ddddd', "r_status":"ff","status": "true", "description":"", "operation":""};
-	/*
-	$.each(dataSrc, function(i, n) {
-		alert(i);
-	})
-	*/
 	var data = $('#recordTable').DataTable().row().data();
 	var dataSrc = new Object();
 	$.each(data, function(i, n) {
@@ -76,6 +71,7 @@ $(document).on("click", "button[name=add]", function() {
 	dataSrc['weight'] = '<input type="text" value="0" style="width:50px;" class="form-control"></input>';
 	dataSrc['r_mx'] = '<input type="text" value="0" style="width:50px;" class="form-control"></input>';
 	dataSrc['operation'] = buttonHtmlbyDefault('insert', 'save', '#1E90FF') + buttonHtmlbyDefault('remove', 'remove', '#DC143C');
+	dataSrc['rid'] = '1';
 	$('#recordTable').DataTable().row.add(dataSrc).draw(false);
 });
 
@@ -98,6 +94,7 @@ var dataSrc = new Object();
 		//data[i] = n.children[0].value;
 		}
 	});
+	dataSrc.rid = '';
 	var s = recordStatus('insert', dataSrc);
 	if (s == true) {
 		$.each(data, function(i, n) {
