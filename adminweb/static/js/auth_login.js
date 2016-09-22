@@ -3,7 +3,7 @@ $(document).on("click", "#authButton", function() {
 	var password = $("input#authPass").val();
 	var jData = '{"username": "' + username + '", "password": "'+ password +'"}';
 	$.ajax({
-		url: "http://127.0.0.1:8001/login",
+		url: "/login",
 		type: "POST",
 		dataType: "json",
 		data: jData,

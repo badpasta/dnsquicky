@@ -1,6 +1,6 @@
 $(document).ready(function() {
 	$.ajax({
-		url: "http://127.0.0.1:8001/api/getdnstypelist",
+		url: "/api/getdnstypelist",
 		type: "GET",
 		dataType: "json",
 		success: function(reponse) {
