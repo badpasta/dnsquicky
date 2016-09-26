@@ -178,6 +178,7 @@ $(document).on("click", "#recordTable button[name=status]", function() {
 	var st = $(this).parents('tr').children();
 	var cloud_dom = $(st[6]).children()[0];
 	var power_i = $(this).children('i');
+	alert(data.rid + " " + data.zid);
 	data.status = !data.status;
 	var s = recordStatus('update', data);
 	if (s == true) {

@@ -8,8 +8,9 @@
 
 from adminweb.handler.work import (LoginHandler, DNSMonHandler, CheckDnsDefault, 
                                    GetDnsTypeList, RecordsHandler, ZonesHandler,
-                                   CheckZoneList, LogoutHandler)
+                                   CheckZoneList, LogoutHandler, AQBHandler)
 from adminweb.handler.zone import ZoneHandler, ZoneGroupHandler, ZoneNumHandler
+from adminweb.handler.aqb import AQBApiHandler, AQBChangeHandler
 from adminweb.handler.refresh import RefreshHandler
 from adminweb.handler.log import ChangeLogHandler
 from adminweb.handler.record import RecordHandler, RecordNumHandler, GetRecordIdHandler
@@ -24,6 +25,9 @@ class WebApplication(Application):
         handlers = [(r"/login", LoginHandler),
                     (r"/logout", LogoutHandler),
                     (r"/dnsmon", DNSMonHandler),
+                    (r"/aqb", AQBHandler),
+                    (r"/api/aqb", AQBApiHandler),
+                    (r"/api/aqb.check", AQBChangeHandler),
                     (r"/api/checkdnsdefault", CheckDnsDefault),
                     (r"/api/getdnstypelist", GetDnsTypeList),
                     (r"/api/zone", ZoneHandler),

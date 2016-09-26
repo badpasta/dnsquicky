@@ -1,0 +1,4 @@
+---
+server: "l-dnstools1.ops.bj2.daling.com"
+port: 6379
+db: 0

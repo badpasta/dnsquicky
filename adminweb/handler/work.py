@@ -32,7 +32,7 @@ class LoginHandler(BaseHandler):
         username = origin_json['username']
         password = origin_json['password']
         message = dict(status='')
-        jUrl = 'http://127.0.0.1:8001/records'
+        jUrl = '/records'
         if username == self.auth['username']:
             if password == self.auth['password']:
                 message['status'] = True
@@ -57,6 +57,16 @@ class RecordsHandler(BaseHandler):
         context_dict = self.the_box.copy()
         context_dict['title'] = 'Records List'
         self.render('records.html', the_box=context_dict)
+
+
+class AQBHandler(BaseHandler):
+    @authenticated
+    @coroutine
+    def get(self):
+        context_dict = self.the_box.copy()
+        context_dict['title'] = 'AnQuanBao'
+        self.render('aqb.html', the_box=context_dict)
+
 
 
 class ZonesHandler(BaseHandler):

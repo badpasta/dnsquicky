@@ -144,7 +144,7 @@ class RecordHandler(BaseHandler):
         if kw.has_key('rgid'): del kw['rgid']
         if kw.has_key('zid'): del kw['zid']
         if kw.has_key('weight'): del kw['weight']
-        if 'MX' not in kw['record_type']: del kw['mx']
+        if kw.has_key('mx') and 'MX' not in kw['record_type']: del kw['mx']
         return kw
 
     def _pickPTR(self, origin, **kw):

@@ -13,6 +13,7 @@ from re import match as re_match, search as re_search, split as re_split
 from smalltools.parseConfig import parseParams
 from dbpool.postgresql import Momoko
 from adminweb.application.Application import WebApplication
+from ownutils.todoredis import NonAsyncRedis
 
 from tornado.options import options
 
@@ -35,10 +36,12 @@ def main():
     extend_config_path = file_path + 'conf.d/'
     extend_config = parseParams(extend_config_path)
     external_api = dict(domain=extend_config['domain_api'], record=extend_config['record_api'])
+    redis_config = extend_config['redis']
     db_conf = extend_config['db']
     tornado.options.parse_config_file(config_file)
     io_loop = tornado.ioloop.IOLoop.instance()
     application = WebApplication()
+    application.redis = NonAsyncRedis(redis_config['server'], redis_config['port'],redis_config['db'])
     application.auth = dict(username=options.LOGINUSER,
                             password=options.LOGINPASS)
     #application.setting['debug'] = options.DEBUG
