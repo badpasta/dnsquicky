@@ -7,10 +7,11 @@ $(document).ready(function() {
 	};
 	mySocket.onmessage = function (messageEvent) {   
 		var table = document.getElementById('aqb_message');
-		//table.insertRow().insertCell().innerHTML = event.data;
-		//alert(event.data);
-		//$("#aqb_message").html(event.data);
-		$(table).append(event.data + '<br>');
+		var data = event.data
+		$(table).append(data + '<br>');
+		if ( data.indexOf("状态") >= 0 && (data.indexOf('200') < 0 && data.indexOf('405') < 0)) {
+			getNotify(data, 'danger');
+		}
 	};
 	mySocket.onerror = function (errorEvent) {   
 	      //
@@ -18,8 +19,6 @@ $(document).ready(function() {
 	mySocket.onclose = function (closeEvent) {
 	     //
 	}
-
-
 });
 
 function sendSocket(data) {
@@ -34,7 +33,8 @@ $(document).on("click", "#aqbTable button[name=status]", function() {
 	//alert(data.rid + " " + data.zid);
 	data.status = !data.status;
 	//var s = recordStatus('update', data);
-	dataSrc = {"param":"aqb", "rid":data.rid, "status":true}
+	dataSrc = {"param":"aqb", "rid":data.rid, "status":data.status, "sub_domain": data.sub_domain, "zone_name": data.zone_name}
+	$('#aqb_message').empty();
 	sendSocket(JSON.stringify(dataSrc));
 	var s = true;
 	if (s == true) {

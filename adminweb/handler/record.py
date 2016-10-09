@@ -15,12 +15,13 @@ from adminweb.opstools.localdns import IxfrRecord
 
 from tornado.gen import coroutine, Task, Return
 from tornado.httpclient import AsyncHTTPClient
+from tornado.httpclient import HTTPError
 from functools import partial
 
 import dns.reversename
 import time
 import sys
-
+import json
 
 class RecordHandler(BaseHandler): 
     @coroutine
@@ -117,7 +118,6 @@ class RecordHandler(BaseHandler):
     def _toDNSPOD(self, func, branch, **kw):
         src = kw['src']
         dst = kw['dst']
-        #print dst['status']
         status, result = yield Task(func.post, **dst)
         if status:
             if 'insert' in branch:
@@ -256,3 +256,31 @@ class GetRecordIdHandler(BaseHandler):
             result['message'] = 'params not found.'
         result['status'] = status
         self.write(convJson(result)) 
+
+class DisableRecordHandler(BaseHandler):
+    @coroutine
+    def post(self):
+        '''
+            {
+            status=,
+            rid=,
+            zone_name=,
+            }
+        '''
+        rid = int()
+        domain_name = str()
+        record_status = str()
+        try:
+            rid = self.get_argument('rid')
+            domain_name = self.get_argument('zone_name')
+            record_status = 'enable' if 'True' in self.get_argument('status') else 'disable'
+        except:
+            raise HTTPError('params is error!!')
+        func = yield self.initRequest()
+        domain_id = yield Task(self._Domainid, func, domain_name)
+        request = yield func.urlPost(self.dnspod_api['record']['disable'], domain_id=domain_id, record_id=rid, status=record_status)
+        if request[0]:
+            self.write(convJson(request[1]))
+        else:
+            raise HTTPError(request[1])
+

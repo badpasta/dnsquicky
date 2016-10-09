@@ -13,7 +13,7 @@ from adminweb.handler.zone import ZoneHandler, ZoneGroupHandler, ZoneNumHandler
 from adminweb.handler.aqb import AQBApiHandler, AQBChangeHandler
 from adminweb.handler.refresh import RefreshHandler
 from adminweb.handler.log import ChangeLogHandler
-from adminweb.handler.record import RecordHandler, RecordNumHandler, GetRecordIdHandler
+from adminweb.handler.record import RecordHandler, RecordNumHandler, GetRecordIdHandler, DisableRecordHandler
 from tornado.web import Application
 from tornado.options import options
 
@@ -32,6 +32,7 @@ class WebApplication(Application):
                     (r"/api/getdnstypelist", GetDnsTypeList),
                     (r"/api/zone", ZoneHandler),
                     (r"/api/record", RecordHandler),
+                    (r"/api/record.disable", DisableRecordHandler),
                     (r"/api/recordnum", RecordNumHandler),
                     (r"/api/getrid", GetRecordIdHandler),
                     (r"/api/recordnum", RecordNumHandler),

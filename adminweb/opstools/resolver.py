@@ -76,7 +76,29 @@ class CheckDns:
 #        the_dict['status'] = 'Ok.'
 #        return the_dict
 
-    
+class CheckDnsRecords(object):
+    def __init__(self):
+        self.resolver = Resolver()
+
+    def nameServer(self, *nameserver):
+        self.nameserver = list(nameserver) if len(nameserver) else list()
+        self.resolver.nameserver =  self.nameserver
+
+    def address(self, record, rdtype, *args):
+        if len(args): self.nameServer(*args)
+        res = self.resolver.query(record, rdtype)
+        address_list = map(lambda x: x.address, res)
+        return address_list
+        #for r in res:
+        #    #print dir(r)
+        #    print r.address
 
 
+def main():
+    dns = CheckDnsRecords()
+    dns.nameServer('114.114.114.114')
+    print dns.status('www.daling.com.he2.aqb.so.','A')
 
+
+if __name__ == '__main__':
+    main()

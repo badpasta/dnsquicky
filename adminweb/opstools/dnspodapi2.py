@@ -21,9 +21,7 @@ import time
 
 # Operation Dnspod.
 class BaseRequestUrl:
-
-    def __init__(self, line, **kwargs):
-
+    def __init__(self, line='默认', **kwargs):
         self.uData = dict(record_line=line)
         self.uHeaders = {"content-type": "application/x-www-form-urlencoded", 
                          "accept": "text/json", 
@@ -32,11 +30,9 @@ class BaseRequestUrl:
 
     @coroutine
     def urlPost(self, u, **kw):
-
         result = [bool(),str()]
         uApi = u
         self.uData.update(**kw)
-        #if 'Domain' in u: del self.uData['record_line']
         body = urllib.urlencode(self.uData)
         #print u
         #print self.uData

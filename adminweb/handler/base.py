@@ -12,6 +12,7 @@ from smalltools.Other import sqlZip
 
 from tornado.gen import coroutine, Task, Return
 from tornado.httpclient import AsyncHTTPClient
+from tornado.websocket import WebSocketHandler
 
 import tornado.web
 
@@ -83,3 +84,16 @@ class BaseHandler(tornado.web.RequestHandler):
         login_token = '%s,%s' %(info['token_id'], info['token'])
         f = BaseRequestUrl(info['default_line'], login_token=login_token, format=info['d_format'])
         raise Return(f)
+
+class BaseWebSocketHandler(WebSocketHandler):
+    @property
+    def db(self):
+        return self.application.db
+
+    @property
+    def redisClient(self):
+        return self.application.redis
+
+    @property
+    def http_Client(self):
+        return AsyncHTTPClient()
