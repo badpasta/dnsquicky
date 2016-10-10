@@ -276,11 +276,11 @@ class DisableRecordHandler(BaseHandler):
             record_status = 'enable' if 'True' in self.get_argument('status') else 'disable'
         except:
             raise HTTPError('params is error!!')
-        func = yield self.initRequest()
-        domain_id = yield Task(self._Domainid, func, domain_name)
-        request = yield func.urlPost(self.dnspod_api['record']['disable'], domain_id=domain_id, record_id=rid, status=record_status)
-        if request[0]:
-            self.write(convJson(request[1]))
-        else:
-            raise HTTPError(request[1])
+        #func = yield self.initRequest()
+        #domain_id = yield Task(self._Domainid, func, domain_name)
+        #request = yield func.urlPost(self.dnspod_api['record']['disable'], domain_id=domain_id, record_id=rid, status=record_status)
+        #if request[0]:
+        #    self.write(convJson(request[1]))
+        #else:
+        #    raise HTTPError(request[1])
 

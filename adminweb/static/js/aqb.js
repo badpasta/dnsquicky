@@ -25,6 +25,21 @@ function sendSocket(data) {
 	mySocket.send(data);
 }
 
+
+function sleep(n) { 
+	var start = new Date().getTime();
+	//alert('1') ;
+	while(true)  if(new Date().getTime()-start > n) break; 
+}
+
+/*
+$(document).ready(function() {
+	sleep(10);
+	var dataSrc = {"param": "bulabula"};
+	sendSocket(JSON.stringify(dataSrc));
+})
+*/
+
 $(document).on("click", "#aqbTable button[name=status]", function() {
 	var data = $('#aqbTable').DataTable().row($(this).parents('tr')).data();
 	var st = $(this).parents('tr').children();
@@ -33,7 +48,7 @@ $(document).on("click", "#aqbTable button[name=status]", function() {
 	//alert(data.rid + " " + data.zid);
 	data.status = !data.status;
 	//var s = recordStatus('update', data);
-	dataSrc = {"param":"aqb", "rid":data.rid, "status":data.status, "sub_domain": data.sub_domain, "zone_name": data.zone_name}
+	dataSrc = {"param":"aqb", "rid":data.rid, "status":data.status, "sub_domain": data.sub_domain, "zone_name": data.zone_name};
 	$('#aqb_message').empty();
 	sendSocket(JSON.stringify(dataSrc));
 	var s = true;

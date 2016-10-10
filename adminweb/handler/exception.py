@@ -11,9 +11,9 @@ class WebErr(Exception):
     def __init__(self, message):
         if isinstance(message, str):
             self.message = message
-        else:
+        else: 
             raise WebErr('Err: value type not str!')
-        #Exception.__init__(self,self.message)  
+        supper(WebErr, self).__init__(self.message) 
 
     def __str__(self):                                                                    
         return repr(self.message)
