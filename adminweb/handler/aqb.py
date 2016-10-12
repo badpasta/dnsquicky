@@ -20,14 +20,17 @@ from functools import partial
 from tornado.httputil import HTTPHeaders
 from tornado.httpclient import HTTPError
 
-import time
+from smalltools.opsJson import jsonLoads, convJson, convSimpleJson
 
+import requests
+import time
+import json
 
 class AQBApiHandler(BaseHandler):
     @coroutine
     def get(self):
-        sql = "select a.rid, b.rid, a.sub_domain, a.value, b.value, a.record_type, b.record_type, a.zone_name, a.status from (select rid, zone_name, sub_domain, status, value, record_type from record_view where value like '%aqb.so%') as a, (select rid, zone_name, sub_domain, record_type, value from record_view) as b where a.zone_name = b.zone_name and a.sub_domain = b.sub_domain and b.record_type = 'A';"
-        aqb_table = ["rid", "sub_domain", "value", "record_type", "zone_name", "status"]
+        sql = "select * from record_aqb_view;"
+        aqb_table = ["rid", "sub_domain", "value", "record_type", "zone_name", "status", "url"]
         kw = dict()
         sql_tuple = yield Task(self.db.select, sql, **kw)
         to_redis = dict()
@@ -61,22 +64,78 @@ class AQBApiHandler(BaseHandler):
             self.redisClient.push('rpush', key, *values)
 
     @coroutine
-    def post(self): pass
-       
+    def post(self):
+        origin_json = jsonLoads(self.request.body)
+        url_path=origin_json['url_path']
+        select_zid_sql = "select zid from record_zones where zone_name = %(zone_name)s;"
+        origin_zid = yield Task(self.db.select, select_zid_sql, zone_name=origin_json['zone_name'])
+        origin_json['zid'] = int(origin_zid[0][0])
+        record_dict = self.initRecord(**origin_json)
+        post_dict = {
+            "param": "insert",
+            "zid": origin_json['zid'],
+            "values": [record_dict,]
+            }
+        result = yield Task(self.recordHttpPost, **post_dict)
+        if result.code != 200:
+            status = False
+        else:
+            getRid_sql = 'select rid from record_list where zid = %(zid)s and sub_domain = %(sub_domain)s and value = %(value)s and record_type = %(record_type)s;'
+            insert_url_sql = 'insert into aqb_urlinfo values (%(rid)s, %(url_path)s);'
+            try:
+                get_rid  = yield Task(self.db.select ,getRid_sql, **record_dict)
+                rid = get_rid[0][0]
+                yield Task(self.db.insert, insert_url_sql, rid=rid, url_path=url_path)
+                self.redisClient.push('rpush', rid, *tuple(origin_json['rids']))
+                status = True
+            except:
+                status = False
+        message = jsonLoads(result.body)[0]['message']
+        print convJson(dict(message=message, status=status))
+        self.write(convJson(dict(message=message, status=status)))
+
+    @coroutine
+    def recordHttpPost(self, **kw):
+        url = 'http://127.0.0.1:8001/api/record'
+        client = NewAsyncHttpClient.initialize()
+        request = client.request('json', 'POST', url, **kw)
+        http = client.http_client()
+        result = yield http.fetch(request)
+        raise Return(result)
+
+
+    @staticmethod
+    def initRecord(**kw):
+        record_key = ('zid', 'sub_domain', 'value', 'ttl')
+        get_key_func = lambda key: kw[key]
+        record_dict = dict(zip(record_key, map(get_key_func, record_key)))
+        record_extend = {
+            "status": "False", 
+            "record_type": "CNAME", 
+            "record_line": u"默认",
+            "weight": "0",
+            "mx": '0',
+            "description": "",
+            "rgid": "1",
+            "rid": ""
+            }
+        record_dict.update(record_extend)
+        return record_dict
+
 
 class AQBChangeHandler(BaseWebSocketHandler):
     clients = set()
     @coroutine
     def open(self):
-        body_dict = {
-            'target':'daling.ng_lua.tengine3.http_code.http_200',
-            'from':1475996617,
-            'until':1476082974,
-            'format':'json'
-            }
+        #body_dict = {
+        #    'target':'daling.ng_lua.tengine3.http_code.http_200',
+        #    'from':1475996617,
+        #    'until':1476082974,
+        #    'format':'json'
+        #    }
         self.write_message('OPEN.')
         AQBChangeHandler.clients.add(self)
-        yield self.getAQBMonitor(**body_dict)
+        #yield self.getAQBMonitor(**body_dict)
 
        
     def on_close(self):
@@ -87,7 +146,7 @@ class AQBChangeHandler(BaseWebSocketHandler):
 
     def check_origin(self, origin):  
         return True  
-
+    
     @coroutine
     def on_message(self, message):
         data = jsonLoads(message)
@@ -186,6 +245,74 @@ class AQBChangeHandler(BaseWebSocketHandler):
         http = client.http_client()
         result = yield http.fetch(request)
         raise Return(result)
+
+
+class AQBMonitorHandler(BaseHandler):
+    @coroutine
+    def get(self):
+        body_dict = {
+            #'target':'daling.ng_lua.tengine3.http_code.http_200',
+            'target':'alias(sumSeries(removeBelowValue(derivative(scaleToSeconds(daling.access_log.*.http_200, 1)), 0)), "HTTP_200")',
+            'from':1475996179,
+            'until':1476082565,
+            'format':'json'
+            }
+        yield self.getAQBMonitor(**body_dict)
+
+    def isClose(self, status=False):
+        self.status = status
+    
+    @property
+    def connection_status(self):
+        return self.status
+
+    @coroutine
+    def getAQBMonitor(self, interval=3, **kw):
+        print 'START AQB MONITOR PROCESS.'
+        #self.isClose()
+        #while not self.connection_status:
+        result = yield self.httpAQBMonitor(**kw)
+        if 200 == result.code:
+            #print convJson(result.body)
+            print result.code
+            #if 200 != result.code:
+            #    self.isClose(True)
+            #time.sleep(interval)
+
+    @coroutine
+    def httpAQBMonitor(self, **kw):
+        url = 'http://monitor.corp.daling.com/render'
+        client = NewAsyncHttpClient.initialize()
+        request = client.request('json', 'POST', url, **kw)
+        http = client.http_client()
+        result = yield http.fetch(request)
+        re = requests.post(url, data=kw)
+        re.status_code
+        print re.json()
+        #print convJson(re.json()[0])
+        raise Return(result)
+
+class AQBURLHandler(BaseHandler):
+    @coroutine
+    def get(self): pass
+
+    @coroutine
+    def post(self):
+        origin_json = jsonLoads(self.request.body)
+        url_path = origin_json['url']
+        rid = origin_json['rid']
+        reponse = dict()
+        sql = 'update aqb_urlinfo SET url_path = %(url_path)s where rid = %(rid)s;'
+        try:
+            yield Task(self.db.insert, sql, url_path=url_path, rid=rid) 
+            reponse['status'] = True
+            reponse['message'] = 'URL update successful!'
+        except:
+            reponse['status'] = False
+            reponse['message'] = 'URL update failed!'
+        print convJson(reponse)
+        self.write(convJson(reponse))
+
 
 
 

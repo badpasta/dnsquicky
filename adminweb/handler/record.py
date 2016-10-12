@@ -26,17 +26,22 @@ import json
 class RecordHandler(BaseHandler): 
     @coroutine
     def get(self):
-        origin_json = dict()
+        origin_json = self.request.arguments
+        data =dict()
         status = str()
         result = dict()
         try:
-            origin_json['zid']= self.get_argument('zid') or '%'
+            if not origin_json.has_key('zid'):
+                sql_select_zid = "select zid from record_zones where zone_name = %(zone_name)s;"
+                tuple_data =yield Task(self.db.select, sql_select_zid, zone_name=origin_json['zone_name'][0])
+                data['zid'] = str(tuple_data[0][0])
+            else:
+                data['zid'] = origin_json['zid'][0] or '%'
             origin_sql = self.forms['record_list']['select_by_zid']
             table_name = ['rid','sub_domain','record_type','value','ttl','weight','mx','record_line','status','zid','rgid','description']
-            origin_data = yield Task(self.db.select, origin_sql, **origin_json)
+            origin_data = yield Task(self.db.select, origin_sql, **data)
             data_list = sqlZip(table_name, origin_data)
             status = True
-            #result['records'] = data_list
             result['records'] = data_list
         except:
             status = False
@@ -130,6 +135,13 @@ class RecordHandler(BaseHandler):
         else:
             message = result['status']['message']
             raise Return((False, message))
+        print branch
+        print dst['value']
+        if 'delete' in branch and 'aqb.so' in dst['value']:
+            print 'delete rid: %s' %dst['rid']
+            delete_url_sql = 'delete from aqb_urlinfo where rid = %(rid)s'
+            yield Task(self.db.insert, delete_url_sql, **dst)
+            self.redisClient.get('delete', dst['rid'])
         try:
             yield Task(self.db.insert, sql, **dst)
         except:
@@ -223,6 +235,7 @@ class RecordNumHandler(BaseHandler):
         origin_json = dict()
         status = str()
         result = dict()
+
         try:
             origin_json['zid']= self.get_argument('zid') or '%'
             origin_sql = self.forms['record_list']['select_count_by_zid']
@@ -239,15 +252,21 @@ class RecordNumHandler(BaseHandler):
 class GetRecordIdHandler(BaseHandler):
     @coroutine
     def get(self):
+        origin = self.request.arguments
         origin_json = dict()
         status = bool()
         result = dict()
         sql = self.forms['record_list']['select_get_rid']
         try:
+            if not origin.has_key('zid'):
+                sql_select_zid = "select zid from record_zones where zone_name = %(zone_name)s;"
+                tuple_data =yield Task(self.db.select, sql_select_zid, zone_name=origin['zone_name'][0])
+                origin_json['zid'] = str(tuple_data[0][0])
+            else:
+                origin_json['zid'] = self.get_argument('zid')
             origin_json['sub_domain'] = self.get_argument('sub_domain')
             origin_json['record_type'] = self.get_argument('record_type')
             origin_json['value'] = self.get_argument('value')
-            origin_json['zid'] = self.get_argument('zid')
             origin_data = yield Task(self.db.select, sql, **origin_json)
             status = True
             result['rid'] = origin_data[0][0]
@@ -256,6 +275,27 @@ class GetRecordIdHandler(BaseHandler):
             result['message'] = 'params not found.'
         result['status'] = status
         self.write(convJson(result)) 
+
+    @coroutine
+    def post(self):
+        origin_json = jsonLoads(self.request.body)
+        status = bool()
+        result = dict()
+        sql = self.forms['record_list']['select_get_rid']
+        try:
+            if origin_json.has_key('zone_name'):
+                sql_select_zid = "select zid from record_zones where zone_name = %(zone_name)s;"
+                tuple_data =yield Task(self.db.select, sql_select_zid, zone_name=origin_json['zone_name'])
+                origin_json['zid'] = str(tuple_data[0][0])
+            origin_data = yield Task(self.db.select, sql, **origin_json)
+            status = True
+            result['rid'] = origin_data[0][0]
+        except:
+            status = False
+            result['message'] = 'params not found.'
+        result['status'] = status
+        self.write(convJson(result)) 
+
 
 class DisableRecordHandler(BaseHandler):
     @coroutine
@@ -283,4 +323,5 @@ class DisableRecordHandler(BaseHandler):
         #    self.write(convJson(request[1]))
         #else:
         #    raise HTTPError(request[1])
+
 

@@ -10,7 +10,8 @@ from adminweb.handler.work import (LoginHandler, DNSMonHandler, CheckDnsDefault,
                                    GetDnsTypeList, RecordsHandler, ZonesHandler,
                                    CheckZoneList, LogoutHandler, AQBHandler)
 from adminweb.handler.zone import ZoneHandler, ZoneGroupHandler, ZoneNumHandler
-from adminweb.handler.aqb import AQBApiHandler, AQBChangeHandler
+from adminweb.handler.aqb import (AQBApiHandler, AQBChangeHandler, 
+                                  AQBMonitorHandler, AQBURLHandler)
 from adminweb.handler.refresh import RefreshHandler
 from adminweb.handler.log import ChangeLogHandler
 from adminweb.handler.record import RecordHandler, RecordNumHandler, GetRecordIdHandler, DisableRecordHandler
@@ -28,6 +29,8 @@ class WebApplication(Application):
                     (r"/aqb", AQBHandler),
                     (r"/api/aqb", AQBApiHandler),
                     (r"/api/aqb.check", AQBChangeHandler),
+                    (r"/api/aqb.monitor", AQBMonitorHandler),
+                    (r"/api/aqb.url", AQBURLHandler),
                     (r"/api/checkdnsdefault", CheckDnsDefault),
                     (r"/api/getdnstypelist", GetDnsTypeList),
                     (r"/api/zone", ZoneHandler),

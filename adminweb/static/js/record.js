@@ -79,7 +79,7 @@ $(document).on("click", "#recordTable button[name=insert]", function() {
 	var theParent = $(this).parents('tr');
 	var data = $('#recordTable').DataTable().row(theParent).data();
 	var children = theParent.children();
-var dataSrc = new Object();
+	var dataSrc = new Object();
 	$.each(data, function(i, n) {
 		dataSrc[i] = n;
 	})
@@ -267,6 +267,7 @@ function pickDataSrc(choose, src) {
 
 function recordStatus(choose, src) {
 	var dataSrc =  JSON.stringify(pickDataSrc(choose, src));
+	//alert(dataSrc);
 	var result_status = false;
 	//use time
 	//var mydate = new Date();

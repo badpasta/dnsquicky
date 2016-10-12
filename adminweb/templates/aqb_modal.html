@@ -1,0 +1,98 @@
+<div class="modal fade" id="aqbUrlModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">>
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">×</span></button>
+                <h4 class="modal-title">修改URL</h4>
+              </div>
+              <div class="modal-body">
+
+						<div>
+						<p><b>RID: </b>
+						<h5 id="rid"></h5></p>
+						</div>
+						<p><b>URL_PATH:</b></p>
+						<div class="input-group">
+							<span id="domain_form" class="input-group-addon"></span>
+							<input id="url_form"  value="" type="text" placeholder="url.." class="form-control">
+						</div>
+                		</br>
+						<div style="word-wrap: break-word;">
+                		<p><b>GET_URL:</b></br>
+						<a id="domain_show"></a><a id="url_show"></a></p>
+						</div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                <button id="url_save" type="button" class="btn btn-primary">Save</button>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+</div>
+
+
+<div class="modal fade" id="aqbAddModal" tabindex="-1" role="dialog" aria-labelledby="aqbAddModalLabel" aria-hidden="true">>
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">×</span></button>
+                <h4 class="modal-title">加入安全宝</h4>
+              </div>
+              <div class="modal-body">
+			  	<div id="aqb_alert" class="alert alert-dismissible" >
+              	  <h4 style="color:#D2691E;"><i class="icon fa fa-warning"></i> <b>alert!</b></h4>
+			  	  	1.记录只接受<b style="color:#CD853F;">CNAME</b>类型.</br>
+			  	  	2.记录创建后状态为<b style="color:#CD853F;">DISABLE</b>.
+              	</div>	
+
+				<div class="form-group">
+                  <label>DOMAIN:</label>
+                  <select id="select_domain" class="form-control">
+                    <option>daling.com</option>
+                    <option>ymall.com</option>
+                  </select>
+                </div>
+				<div class="form-group">
+                  <label>SUB_DOMAIN:</label>
+                  <input id="sub_domain" class="form-control"></input>
+                </div>
+				<div class="form-group">
+                  <label>VALUE:</label>
+                  <input id="aqb_record_value" class="form-control" ></input>
+                </div>
+				<div class="form-group">
+                  <label>TTL:</label>
+                  <input id="aqb_record_ttl" class="form-control" value="60"></input>
+                </div>
+				<div class="form-group">
+                  <label>URL_PATH:</label>
+                  <input id="aqb_record_urlpath" class="form-control" value="/"></input>
+                </div>
+				<div class="form-group">
+                    <label>RECORD_LIST:</label>
+					<table id="aqbSelectTable" class="table table-bordered" > <!--  text-center --!>
+			  		<thead>
+			  		<tr>
+						<th>rid</th>
+						<th>sub_domain</th>
+						<th>type</th>
+						<th>value</th>
+					</tr>
+					</thead>
+                	</table>
+			    </div>
+				</br>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                <button id="aqb_insert" type="button" class="btn btn-primary">Save</button>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+</div>

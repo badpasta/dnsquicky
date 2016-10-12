@@ -89,6 +89,8 @@ class NewAsyncHttpClient(object):
 
     @staticmethod
     def format_body(body_format='json', **kw):
+        #if 'origin'  in body_format:
+        #    return kw
         if 'json' in body_format:
             return convSimpleJson(kw)
         if 'urlencode' in body_format:

@@ -62,3 +62,8 @@
     /* To center horizontally */
     margin: 25%;
 }
+
+
+.table-selected {
+	background-color: #4DB38A;
+}

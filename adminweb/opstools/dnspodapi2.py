@@ -87,7 +87,6 @@ def pushDNS(request_func, branch, domain_id, **kw):
     if udata.get('description'): del udata['description']
     if udata.get('zid'): del udata['zid']
     if udata.get('rgid'): del udata['rgid']
-    print udata['status'] 
     if udata['status'] == 'True':
         udata['status'] = 'enable'
     else:
@@ -125,7 +124,7 @@ class PushDNS:
         if kw.get('rgid'): del kw['rgid']
         if kw.has_key('rid'):
             kw['record_id'] = kw.pop('rid')
-        if kw['status']:
+        if str(kw['status']) == 'True':
             kw['status'] = 'enable'
         else:
             kw['status'] = 'disable'
