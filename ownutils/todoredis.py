@@ -42,7 +42,7 @@ class NonAsyncRedis(object):
 def main():
     server = 'l-dnstools1.ops.bj2.daling.com'
     redis = NonAsyncRedis(server=server)
-    print redis.get('lrange', '107338936', '0', '-1')
+    print redis.get('delete', '241383343')
 
 if __name__ == '__main__':
     main()

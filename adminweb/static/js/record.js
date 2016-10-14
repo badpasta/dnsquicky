@@ -376,14 +376,14 @@ function initTables(zid){
 			{data: 'rid',  visible: false},
 			{data: 'sub_domain', orderable: false},
 			{data: 'record_type', width: '70'},
-			{data: 'ttl', width: '30'},
+			{data: 'ttl', width: '30', visible: false},
 			{data: 'value', orderable: false},
-			{data: 'weight', width: '5'},
+			{data: 'weight', width: '5', visible: false},
 			{data: 'mx', visible: false},
-			{data: 'r_mx', width: '5'},
+			{data: 'r_mx', width: '5', visible: false},
 			{data: 'record_line', visible: false},
 			{data: 'status', visible: false},
-			{data: 'r_status', width: '28', orderable: false},
+			{data: 'r_status', width: '28', orderable: false, visible: false},
 			{data: 'description', visible: false},
 			{data: 'operation', orderable: false}
 		/*

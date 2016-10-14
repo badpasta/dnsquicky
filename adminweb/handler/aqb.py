@@ -155,6 +155,12 @@ class AQBChangeHandler(BaseWebSocketHandler):
             tmp_mess = '记录: ' + record +'初始化..'
             self.write_message(tmp_mess)
             print tmp_mess
+
+            #status = yield self.goCurl(record, **data)
+            #print status
+
+            status = yield self.goCurl(record, **data)
+            print status
             try:
                 status = yield self.goCurl(record, **data)
                 assert status
@@ -181,10 +187,13 @@ class AQBChangeHandler(BaseWebSocketHandler):
                 result = yield httpClient.http_client.fetch(request)
                 status = str(result.code)
             except HTTPError, e:
-                status = str(e.code)
+                if e.code == 404:
+                    status = str(e.code)
+                else:
+                    status = str(4002)
             self.write_message('url:' + request.url)
             self.write_message('状态:' + status)
-            if '405' not in status and '40' in status or '50' in status:
+            if '404' in status:
                 self.write_message('服务器访问异常,请检查相关配置.')
                 self.write_message('停止切换动作.')
                 raise Return(False)
@@ -199,6 +208,7 @@ class AQBChangeHandler(BaseWebSocketHandler):
         select_sql_value = 'select value, url_path from  (select a.rid, value, url_path from (select rid, value from record_list) as a right  join aqb_urlinfo as b on a.rid = b.rid) as c where rid = %(rid)s'
         values = yield Task(self.db.select, select_sql_value, rid=kw['rid'])
         values_list = list(values[0])
+        print values_list
         if not kw['status']:
             values_list[0] = record
         url_path = values_list[1]
@@ -212,7 +222,12 @@ class AQBChangeHandler(BaseWebSocketHandler):
         slave_map = map(lambda x: (x, not kw['status']), key_list)
         http = AsyncHttpClient()
         url = 'http://127.0.0.1:8001/api/record.disable'
-        for rid, status in (aqb_list + slave_map):
+        the_list = list()
+        if aqb_list[0][1]:
+            the_list =  slave_map + aqb_list
+        else:
+            the_list = aqb_list + slave_map
+        for rid, status in the_list:
             request = http.request('POST', url, zone_name=kw['zone_name'], rid=rid, status=status)
             result = yield http.push(request)
             if 200 != result.code:

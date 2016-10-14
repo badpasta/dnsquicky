@@ -39,6 +39,8 @@ class BaseRequestUrl:
         httpclient = AsyncHTTPClient()
         uPost = yield httpclient.fetch(uApi, method='POST', body=body, headers=self.uHeaders)
         #print uPost.body
+        print u
+        print body
         try:
             jPost = jsonLoads(uPost.body)
             #print jPost

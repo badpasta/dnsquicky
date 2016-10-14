@@ -74,6 +74,7 @@ $(document).on("click", "#aqb_add", function() {
 	$('#aqb_alert').fadeOut(3000);
 	$('input#sub_domain').val('');
 	$('input#aqb_record_value').val('');
+	$('input#aqb_record_urlpath').val('');
 	initRecordTables('');
 });
 
