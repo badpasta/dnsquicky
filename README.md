@@ -1,3 +1,8 @@
+<<<<<<< HEADs
+=======
+# dnsquicky
+It is a simple dns script.
+
 # Introduction
 	DNSQuicky is a simple script used to how operate the dns record.
 	The scripts power by python 2.7.
@@ -15,3 +20,4 @@ sudo virtualenv2 $PYDIR
 
 # Changelog
 	
+>>>>>>> a5adb52afe28b8b56327c11d54f48eb2e46095bc
