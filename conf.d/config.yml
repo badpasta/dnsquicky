@@ -1,5 +1,26 @@
 ---
 rdtype_list: ["A", "MX", "NS", "TXT", "CNAME", "PTR"]
 ixfr:
-    server: 'l-core2.ops.bj2.daling.com'
+    server: '127.0.0.1'
     port: 53
+
+---
+redis:
+    server: "127.0.0.1"
+    port: 6379
+    db: 0
+
+database:
+    server: "127.0.0.1"
+    port: 5494
+    user: "dnsadmin"
+    password: "dnsadmin"
+    name: "dnsadmin"
+
+---
+login:
+    server: "0.0.0.0"
+    port: 8001
+    debug: True
+    user: "admin"
+    password: "password"

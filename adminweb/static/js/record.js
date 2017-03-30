@@ -383,7 +383,7 @@ function initTables(zid){
 			{data: 'r_mx', width: '5', visible: false},
 			{data: 'record_line', visible: false},
 			{data: 'status', visible: false},
-			{data: 'r_status', width: '28', orderable: false, visible: false},
+			{data: 'r_status', width: '28', orderable: false},
 			{data: 'description', visible: false},
 			{data: 'operation', orderable: false}
 		/*

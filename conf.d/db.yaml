@@ -1,7 +1,0 @@
----
-#DBSERVER: "l-dnstools1.ops.bj2.daling.com"
-DBSERVER: "l-dnstools1.ops.bj2.daling.com"
-PORT: 5494
-DBUSER: "dnsadmin"
-DBPASS: "dnsadmin"
-DBNAME: "dnsadmin"
