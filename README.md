@@ -1,4 +1,3 @@
-<<<<<<< HEADs
 =======
 # dnsquicky
 It is a simple dns script.
@@ -20,4 +19,3 @@ sudo virtualenv2 $PYDIR
 
 # Changelog
 	
->>>>>>> a5adb52afe28b8b56327c11d54f48eb2e46095bc
